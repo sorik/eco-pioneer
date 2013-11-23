@@ -39,11 +39,6 @@ public class EcoService {
 		return ecoData.getScore();
 	}
 	
-	public int getScore()
-	{
-		return ecoData.getScore();
-	}
-	
 	private void StartTracking() {
 		if(timer != null)
 			return;
