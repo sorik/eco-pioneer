@@ -6,7 +6,7 @@
 
     <uses-sdk
         android:minSdkVersion="12"
-        android:targetSdkVersion="15" />
+        android:targetSdkVersion="18" />
 
     <permission
         android:name="com.eco.pioneer.permission.MAPS_RECEIVE"
@@ -27,6 +27,9 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="com.eco.pioneer.MapActivity" >
         </activity>
         <activity
             android:name="com.eco.pioneer.LockScreenActivity"

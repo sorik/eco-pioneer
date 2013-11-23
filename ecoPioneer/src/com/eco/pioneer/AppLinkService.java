@@ -365,8 +365,9 @@ public void onOnCommand(OnCommand notification) {
 			break;
 		case CMD_FINISH: //XML Test
 			speakVoice(MainActivity.ecoService.Stop());
-        	Intent intent = new Intent(currentUIActivity, MapActivity.class);        	
-        	startActivity(intent);
+        	Intent intent = new Intent(currentUIActivity, MapActivity.class); 
+        	intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        	getApplication().startActivity(intent);
 			break;
 		default:
 			break;

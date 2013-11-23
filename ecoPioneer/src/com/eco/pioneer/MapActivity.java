@@ -84,7 +84,6 @@ public class MapActivity extends Activity {
 	        {
 	            super.onPreExecute();
 	            Log.e("Rest", "onPreExecute");
-//	            progressDialog = ProgressDialog.show(NFCActivity.this, "Requesting...", "Waiting...", true, false);
 	        }
 	        
 	        
