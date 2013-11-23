@@ -25,13 +25,21 @@ public class EcoDataAdapter {
 		
 		String name = (String)data.get("name");
 		String start = (String)data.get("start");
-		return "Hello" + " " + name + " " + "You are on" + " " + start;
+		return "Hello " + name + ".. " + "You are on " + start + ".. "
+				+ "Enjoy your journey.";
 		
 	}
 	
 	public String stop() {
-		String summary = new String();
-		return "Your socre is "+ score.getScore();
+		String summary = "";
+
+		summary += "You traveled from " + (String)data.get("start");
+		summary += " to " +  (String)data.get("stop") + ".. ";
+		
+		summary += "Your score is "+ score.getScore() +".. ";
+		summary += "Congratulations.. You became a pioneer..";
+		
+		return summary; 
 	}
 	
 	public int getScore() {
@@ -53,30 +61,35 @@ public class EcoDataAdapter {
 		switch(score.insertVelocity(velocityKPH))
 		{
 		case TOO_FAST:
-			ret = "You are too fast. slow down";
+			ret = "You are too fast. slow down!";
 			break;
 		case TOO_SLOW:
-			ret = "Come on, speed up";
+			ret = "You can go faster!";
 			break;
 		case GOOD:
 		default:
-			ret = "Well done, keep going on the same speed";
+			ret = goodjob[goodjobI];
+			goodjobI = (goodjobI + 1 ) % goodjob.length;
 			break;
 		}
 		
 		return ret;
 		
 	}
+	
+	private final String [] goodjob = {"Good job. Steady on.", "Beautiful. Keep on.", "You are gorgeous." };
+	private int goodjobI = 0;
+	
 	private String mockData = new String( "{" +
   "\"name\": \"sori\"," +
   "\"start\": \"Two Ton Max\"," +
-  "\"stop\": \"Univesity of Melbourne\", " +
+  "\"stop\": \"Vic Market\", " +
   "\"score\": \"100\", " +
   "\"rank\": \"1\", " +
   "\"pionner\": \"yes\", " +
   "\"records\": [\"You are not efficient\", \"You are super awesome\"]}");
 	
-	public Double [] mocDistancesGood = new Double[] {83.0, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3, 83.3};
-	public Double [] mocDistancesBad =  new Double[] {150.0, 150.0, 130.0, 100.0, 83.0, 83.0, 83.0, 60.0, 60.0, 60.0, 150.0, 150.0};
+	public Double [] mocDistancesGood = new Double[] {85.0, 85.3};
+	public Double [] mocDistancesBad =  new Double[] {85.0, 85.0, 150.0, 150.0, 85.0, 60.0, 85.3};
 
 }

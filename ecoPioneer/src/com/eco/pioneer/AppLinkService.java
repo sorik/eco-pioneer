@@ -223,11 +223,7 @@ public class AppLinkService extends Service implements IProxyListenerALM{
 		  			}
 		  		}
 		  		else{
-		  			try {
-		  				proxy.show("SyncProxy is", "Alive", TextAlignment.CENTERED, autoIncCorrId++);
-		  			} catch (SyncException e) {
-		  				DebugTool.logError("Failed to send Show", e);
-		  			}
+		  			showText("EcoPioneer", "is running");
 		  		}
 		  		break;
 		  		
@@ -380,7 +376,8 @@ public void onOnCommand(OnCommand notification) {
         	Intent intent = new Intent(currentUIActivity, MapActivity.class); 
         	intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         	getApplication().startActivity(intent);
-		showText("Your score is", "" + MainActivity.ecoService.getScore());
+        	
+        	showText("Your score is", "" + MainActivity.ecoService.getScore());
 			break;
 		default:
 			break;
