@@ -200,36 +200,37 @@ public class AppLinkService extends Service implements IProxyListenerALM{
 		  }
 		  
 		  switch(notification.getHmiLevel()) {
-				 case HMI_FULL:
-					 if (driverdistrationNotif == false) {showLockScreen();}
-					 if(notification.getFirstRun()) {
-						   //setup app on SYNC
-						   //send welcome message if applicable
-						 	try {
-								proxy.show("this is the first", "show command", TextAlignment.CENTERED, autoIncCorrId++);
-							} catch (SyncException e) {
-								DebugTool.logError("Failed to send Show", e);
-							}
+		  	case HMI_FULL:
+		  		if (driverdistrationNotif == false) {
+		  			showLockScreen();
+		  		}
+		  		
+		  		if(notification.getFirstRun()) {
+		  			//setup app on SYNC
+		  			//send welcome message if applicable
+		  			showText("Say START", 
+		  					"when you are ready");
 						 	
-						 	//addCommand
-						 	addVoiceCommand("Start", CMD_START);
-						 	addVoiceCommand("Finish", CMD_FINISH);
-						 	addVoiceCommand("Summary", CMD_SUMMARY);
+		  			//addCommand
+		  			addVoiceCommand("Start", CMD_START);
+		  			addVoiceCommand("Finish", CMD_FINISH);
+		  			addVoiceCommand("Summary", CMD_SUMMARY);
 							
-						    //subscribe to buttons
-						 	subButtons();
-						 	if (MainActivity.getInstance() != null) {
-					        	setCurrentActivity(MainActivity.getInstance());
-					        }
-						}
-					 else{
-						 try {
-								proxy.show("SyncProxy is", "Alive", TextAlignment.CENTERED, autoIncCorrId++);
-							} catch (SyncException e) {
-								DebugTool.logError("Failed to send Show", e);
-							}
-					 }
-					   break;
+		  			//subscribe to buttons
+		  			subButtons();
+		  			if (MainActivity.getInstance() != null) {
+		  				setCurrentActivity(MainActivity.getInstance());
+		  			}
+		  		}
+		  		else{
+		  			try {
+		  				proxy.show("SyncProxy is", "Alive", TextAlignment.CENTERED, autoIncCorrId++);
+		  			} catch (SyncException e) {
+		  				DebugTool.logError("Failed to send Show", e);
+		  			}
+		  		}
+		  		break;
+		  		
 				 case HMI_LIMITED:
 					 if (driverdistrationNotif == false) {showLockScreen();}
 					   break;
@@ -244,6 +245,16 @@ public class AppLinkService extends Service implements IProxyListenerALM{
 				 default:
 					   return;
 		  }
+   }
+   
+   private void showText(String line1, String line2)
+   {
+	 	try {
+			proxy.show(line1, line2, TextAlignment.CENTERED, autoIncCorrId++);
+		} catch (SyncException e) {
+			DebugTool.logError("Failed to send Show", e);
+		}
+	   
    }
    
    private void addVoiceCommand(String command, int cmdId)
@@ -361,13 +372,15 @@ public void onOnCommand(OnCommand notification) {
 	switch(notification.getCmdID())
 	{
 		case CMD_START: //XML Test
-			speakVoice(MainActivity.ecoService.start());
+			speakVoice(MainActivity.ecoService.Start());
+			showText("EcoPioneer","Started");
 			break;
 		case CMD_FINISH: //XML Test
-			speakVoice(MainActivity.ecoService.stop());
+			speakVoice(MainActivity.ecoService.Stop());
         	Intent intent = new Intent(currentUIActivity, MapActivity.class); 
         	intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         	getApplication().startActivity(intent);
+		showText("Your score is", "" + MainActivity.ecoService.getScore());
 			break;
 		default:
 			break;
