@@ -1,4 +1,4 @@
-*.class
+*/*.class
 
 *~
 *.lock
@@ -6,11 +6,9 @@
 *.swp
 *.out
 
-bin/
-gen/
+*/bin/
+*/gen/
 
-*.apk
-*.ap_
-*.dex
-
-
+*/*.apk
+*/*.ap_
+*/*.dex
