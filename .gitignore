@@ -6,8 +6,12 @@
 *.swp
 *.out
 
+.metadata
+
 */bin/
 */gen/
+
+project.properties
 
 */*.apk
 */*.ap_
