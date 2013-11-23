@@ -67,7 +67,9 @@ public class MainActivity extends Activity {
 	        	((TextView)findViewById(R.id.maintextview)).setText(ecoService.Start());
 	        	return true;
 	        case R.id.stop:
-	        	((TextView)findViewById(R.id.maintextview)).setText(ecoService.Stop());
+	        	Intent intent = new Intent(this, MapActivity.class);
+	        	startActivity(intent);
+	        	
 	        	return true;	        	
 	        default:
 	            return super.onOptionsItemSelected(item);
