@@ -32,6 +32,7 @@ public class EcoService {
 	
 	public String stop() {
 		timer.cancel();
+		timer = null;
 		return ecoData.stop();
 	}
 	
@@ -44,13 +45,14 @@ public class EcoService {
 			return;
 		
 		timer = new Timer();
+
 		timer.scheduleAtFixedRate(new TimerTask() {
 			@Override
 			public void run() {
 				Log.v("pioneer", "timer task called.");
 				updater.update();
 			}
-		}, UPDATE_INTERVAL, UPDATE_INTERVAL);
+		}, UPDATE_INTERVAL*2, UPDATE_INTERVAL);
 		
 	}
 	
