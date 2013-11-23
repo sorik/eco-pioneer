@@ -337,6 +337,9 @@ public void onGenericResponse(GenericResponse response) {
 
 public static void speakVoice(String text)
 {
+	if(AppLinkService.getInstance() == null)
+		return;
+	
 	Speak msg = new Speak();
 	msg.setCorrelationID(autoIncCorrId++);
 	Log.v("EcoMaster", text);
