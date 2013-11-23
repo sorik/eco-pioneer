@@ -1,15 +1,26 @@
 package com.eco.pioneer;
 
+import java.util.ArrayList;
+
+import org.w3c.dom.Document;
+
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 
+import com.eco.pioneer.service.EcoRoute;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
+
 
 public class MapActivity extends Activity {
 
@@ -23,29 +34,8 @@ public class MapActivity extends Activity {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_map);
 	    
-	    if (map == null) {
-		    map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
-			        .getMap();	    	
-	    }
-	    
-	    Marker north_melbourne = map.addMarker(new MarkerOptions().position(NORTH_MELBOURNE)
-	        .title("North Melbourne"));
+	    showMap();
 
-//        .icon(BitmapDescriptorFactory
-//	            .fromResource(R.drawable.ic_launcher)) 
-	            
-	    Marker vic_market = map.addMarker(new MarkerOptions()
-	        .position(VICMARKET)
-	        .title("Collingwood")
-	        .snippet("You are master"));
-	    vic_market.showInfoWindow();
-	    
-
-	    // Move the camera instantly to hamburg with a zoom of 15.
-	    map.moveCamera(CameraUpdateFactory.newLatLngZoom(NORTH_MELBOURNE, 15));
-
-	    // Zoom in, animating the camera.
-	    map.animateCamera(CameraUpdateFactory.zoomTo(13), 2000, null);
 	  }
 
 	  @Override
@@ -53,6 +43,69 @@ public class MapActivity extends Activity {
 //	    getMenuInflater().inflate(R.menu.activity_main, menu);
 	    return true;
 	  }
+	  
+	  private void showMap() {
+		  map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
+				  .getMap();	    	
+		  Marker north_melbourne = map.addMarker(new MarkerOptions().position(NORTH_MELBOURNE)
+				  .title("North Melbourne"));
+
+		  //		        .icon(BitmapDescriptorFactory
+		  //			            .fromResource(R.drawable.ic_launcher)) 
+
+		  Marker vic_market = map.addMarker(new MarkerOptions()
+		  .position(VICMARKET)
+		  .title("Collingwood")
+		  .snippet("You are master"));
+		  vic_market.showInfoWindow();
+
+
+		  // Move the camera instantly to hamburg with a zoom of 15.
+		  map.moveCamera(CameraUpdateFactory.newLatLngZoom(NORTH_MELBOURNE, 15));
+
+		  // Zoom in, animating the camera.
+		  map.animateCamera(CameraUpdateFactory.zoomTo(13), 2000, null);	
+		  
+		  new RouteTask().execute(NORTH_MELBOURNE, VICMARKET);
+	  }	
+	  
+		private class RouteTask extends AsyncTask<LatLng, Void, Document> {
+
+			EcoRoute route;
+	        @Override
+	        protected void onPreExecute()
+	        {
+	            super.onPreExecute();
+	            Log.e("Rest", "onPreExecute");
+//	            progressDialog = ProgressDialog.show(NFCActivity.this, "Requesting...", "Waiting...", true, false);
+	        }
+	        
+	        
+			@Override
+		    protected Document doInBackground(LatLng... params) {
+				Log.e("Rest", "doInBackground");
+				
+				LatLng source = params[0];
+				LatLng destination = params[1];
+				
+				route = new EcoRoute();
+				Document routeDocument = route.getDocument(source, destination);
+		          
+				return routeDocument;
+			}
+			
+			@Override
+			protected void onPostExecute(Document doc) {
+				Log.e("Rest", "onPostExecute");
+				super.onPostExecute(doc);
+				
+				ArrayList<LatLng> routePoints = route.getDirection(doc);
+				PolylineOptions routeLines = new PolylineOptions().width(10).color(Color.RED);
+				routeLines.addAll(routePoints);
+				map.addPolyline(routeLines);
+
+			}
+		}
 
     
 }
