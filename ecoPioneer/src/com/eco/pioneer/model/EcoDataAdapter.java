@@ -69,7 +69,7 @@ public class EcoDataAdapter {
 	}
 	private String mockData = new String( "{" +
   "\"name\": \"sori\"," +
-  "\"start\": \"Sturt Street SouthBank\"," +
+  "\"start\": \"Two Ton Max\"," +
   "\"stop\": \"Univesity of Melbourne\", " +
   "\"score\": \"100\", " +
   "\"rank\": \"1\", " +
