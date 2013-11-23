@@ -16,17 +16,19 @@ public class EcoScore {
 		this.bestVelocityMax= bestVelocityMax;
 	}
 	
-	int score = 0;
+	private int penalty = 0;
+	private int measureCount = 0;
 	
 	public Grade insertVelocity(double velocity)
 	{
 		int diff = 0;
+		measureCount++;
 		
 		diff = (int)Math.round(velocity - bestVelocityMax);
 		
 		if(diff >= 0)
 		{
-			score += diff*diff;
+			penalty += diff*diff;
 			return Grade.TOO_FAST;
 		}
 		else
@@ -34,7 +36,7 @@ public class EcoScore {
 			diff = (int)Math.round(bestVelocityMin - velocity);
 			if(diff >= 0)
 			{
-				score += diff*diff;
+				penalty += diff*diff;
 				return Grade.TOO_SLOW;
 			}
 		}
@@ -44,6 +46,13 @@ public class EcoScore {
 	
 	public int getScore()
 	{
+		double avgPenalty = (double)penalty / measureCount;
+		int score = (int) (100 - (avgPenalty / 16));
+		
+		if(score > 100)
+			score = 100;
+		else if(score <0)
+			score = 0;
 		return score;
 	}
 }
