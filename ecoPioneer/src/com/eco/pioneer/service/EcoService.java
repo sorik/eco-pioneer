@@ -1,5 +1,6 @@
 package com.eco.pioneer.service;
 
+import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -17,6 +18,7 @@ public class EcoService {
 		
 		ecoData = new EcoDataAdapter();
 		updater = new EcoServiceUpdater(ecoData);
+		updater.setDistances(Arrays.asList(ecoData.mocDistancesBad));
 	}
 	
 	public String Where() {
@@ -34,6 +36,9 @@ public class EcoService {
 	}
 	
 	private void StartTracking() {
+		if(timer != null)
+			return;
+		
 		timer = new Timer();
 		timer.scheduleAtFixedRate(new TimerTask() {
 			@Override
@@ -41,15 +46,10 @@ public class EcoService {
 				Log.v("pioneer", "timer task called.");
 				updater.update();
 			}
-		}, 8*1000, 5*1000);
+		}, UPDATE_INTERVAL, UPDATE_INTERVAL);
 		
 	}
 	
-	
-	
-	
-	
-	
-	
+	public static int UPDATE_INTERVAL = 5*1000;
 
 }
