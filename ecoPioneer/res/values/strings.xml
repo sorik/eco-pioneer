@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">ecoPioneer</string>
+    <string name="hello_eco_pioneer">Hello Eco Pioneer!</string>
+    <string name="exit">Exit</string>
+    <string name="title_activity_main">Eco Pioneer</string>
+    <string name="title_activity_map">MapActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+
+</resources>
