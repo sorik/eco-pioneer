@@ -172,7 +172,7 @@ public class AppLinkService extends Service implements IProxyListenerALM{
    }
    
    static final int CMD_START = 200;
-   static final int CMD_EXTERMINATE = 201;
+   static final int CMD_FINISH = 201;
    static final int CMD_SUMMARY = 202;
    
    public void onOnHMIStatus(OnHMIStatus notification) {
@@ -213,7 +213,7 @@ public class AppLinkService extends Service implements IProxyListenerALM{
 						 	
 						 	//addCommand
 						 	addVoiceCommand("Start", CMD_START);
-						 	addVoiceCommand("Exterminate", CMD_EXTERMINATE);
+						 	addVoiceCommand("Finish", CMD_FINISH);
 						 	addVoiceCommand("Summary", CMD_SUMMARY);
 							
 						    //subscribe to buttons
@@ -360,8 +360,10 @@ public void onOnCommand(OnCommand notification) {
 		case CMD_START: //XML Test
 			speakVoice(MainActivity.ecoService.Start());
 			break;
-		case CMD_EXTERMINATE: //XML Test
+		case CMD_FINISH: //XML Test
 			speakVoice(MainActivity.ecoService.Stop());
+        	Intent intent = new Intent(currentUIActivity, MapActivity.class);        	
+        	startActivity(intent);
 			break;
 		default:
 			break;

@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import org.w3c.dom.Document;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.widget.TextView;
 
 import com.eco.pioneer.service.EcoRoute;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -26,12 +26,14 @@ public class MapActivity extends Activity {
 
 	  static final LatLng NORTH_MELBOURNE = new LatLng(-37.796, 144.937);
 	  static final LatLng VICMARKET = new LatLng(-37.805, 144.956);
+	  static final LatLng CENTER = new LatLng(-37.800392,144.944852);
 	  
 	  private GoogleMap map;
 
 	  @Override
 	  protected void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    Log.e("Map", "onCreated");
 	    setContentView(R.layout.activity_map);
 	    
 	    showMap();
@@ -49,6 +51,7 @@ public class MapActivity extends Activity {
 				  .getMap();	    	
 		  Marker north_melbourne = map.addMarker(new MarkerOptions().position(NORTH_MELBOURNE)
 				  .title("North Melbourne"));
+		  north_melbourne.showInfoWindow();
 
 		  //		        .icon(BitmapDescriptorFactory
 		  //			            .fromResource(R.drawable.ic_launcher)) 
@@ -61,12 +64,16 @@ public class MapActivity extends Activity {
 
 
 		  // Move the camera instantly to hamburg with a zoom of 15.
-		  map.moveCamera(CameraUpdateFactory.newLatLngZoom(NORTH_MELBOURNE, 15));
+		  map.moveCamera(CameraUpdateFactory.newLatLngZoom(CENTER, 14));
 
 		  // Zoom in, animating the camera.
-		  map.animateCamera(CameraUpdateFactory.zoomTo(13), 2000, null);	
+		  map.animateCamera(CameraUpdateFactory.zoomTo(14), 2000, null);	
 		  
 		  new RouteTask().execute(NORTH_MELBOURNE, VICMARKET);
+		  
+		  TextView result = (TextView)findViewById(R.id.map_result);
+		  result.setText("Your eco score is 86");
+		  
 	  }	
 	  
 		private class RouteTask extends AsyncTask<LatLng, Void, Document> {
@@ -103,7 +110,6 @@ public class MapActivity extends Activity {
 				PolylineOptions routeLines = new PolylineOptions().width(10).color(Color.RED);
 				routeLines.addAll(routePoints);
 				map.addPolyline(routeLines);
-
 			}
 		}
 
