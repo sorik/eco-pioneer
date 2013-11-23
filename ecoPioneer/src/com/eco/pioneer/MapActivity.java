@@ -35,7 +35,7 @@ public class MapActivity extends Activity {
 	    super.onCreate(savedInstanceState);
 	    Log.e("Map", "onCreated");
 	    setContentView(R.layout.activity_map);
-	    
+		  
 	    showMap();
 
 	  }
@@ -55,8 +55,8 @@ public class MapActivity extends Activity {
 
 		  Marker vic_market = map.addMarker(new MarkerOptions()
 		  .position(VICMARKET)
-		  .title("Collingwood")
-		  .snippet("You are master"));
+		  .title("Vic Market")
+		  .snippet("You become a pioneer"));
 		  vic_market.showInfoWindow();
 
 
