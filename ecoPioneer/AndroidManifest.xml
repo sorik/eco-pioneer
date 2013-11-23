@@ -6,7 +6,7 @@
 
     <uses-sdk
         android:minSdkVersion="12"
-        android:targetSdkVersion="18" />
+        android:targetSdkVersion="13" />
 
     <permission
         android:name="com.eco.pioneer.permission.MAPS_RECEIVE"

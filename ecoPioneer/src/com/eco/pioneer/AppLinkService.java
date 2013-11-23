@@ -216,7 +216,7 @@ public class AppLinkService extends Service implements IProxyListenerALM{
 		  			addVoiceCommand("Finish", CMD_FINISH);
 		  			addVoiceCommand("Summary", CMD_SUMMARY);
 							
-		  			//subscribe to buttons
+		  			//subscribe to buttons 
 		  			subButtons();
 		  			if (MainActivity.getInstance() != null) {
 		  				setCurrentActivity(MainActivity.getInstance());

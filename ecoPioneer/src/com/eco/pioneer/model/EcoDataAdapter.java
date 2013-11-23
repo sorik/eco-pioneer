@@ -8,7 +8,9 @@ import org.json.simple.parser.ParseException;
 public class EcoDataAdapter {
 	
 	private JSONObject data;
-	private EcoScore score = null;	
+	private EcoScore score = null;
+	private GPSManager gpsManager = new GPSManager();
+	
 	public EcoDataAdapter() {
 
 		try {			
@@ -18,9 +20,13 @@ public class EcoDataAdapter {
 		} catch (ParseException e) {
 			System.out.println("Fail to create EcoDataAdapter." + e.getMessage());
 		} 
+		
+		
 	}
 	
 	public String start() {
+		//gpsManager.start();
+		
 		score = new EcoScore(60, 80);
 		
 		String name = (String)data.get("name");
@@ -31,6 +37,8 @@ public class EcoDataAdapter {
 	}
 	
 	public String stop() {
+		//gpsManager.stop();
+
 		String summary = "";
 
 		summary += "You traveled from " + (String)data.get("start");

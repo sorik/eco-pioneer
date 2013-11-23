@@ -31,7 +31,9 @@ public class EcoService {
 	}
 	
 	public String stop() {
+		System.out.println("Stop called");
 		timer.cancel();
+		timer.purge();
 		timer = null;
 		return ecoData.stop();
 	}
