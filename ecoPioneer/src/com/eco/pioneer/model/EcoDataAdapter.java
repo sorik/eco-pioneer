@@ -20,7 +20,7 @@ public class EcoDataAdapter {
 		} 
 	}
 	
-	public String Start() {
+	public String start() {
 		score = new EcoScore(60, 80);
 		
 		String name = (String)data.get("name");
@@ -29,9 +29,13 @@ public class EcoDataAdapter {
 		
 	}
 	
-	public String Stop() {
+	public String stop() {
 		String summary = new String();
 		return "Your socre is "+ score.getScore();
+	}
+	
+	public int getScore() {
+		return score.getScore();
 	}
 	
 	public String get(int count) {

@@ -21,18 +21,22 @@ public class EcoService {
 		updater.setDistances(Arrays.asList(ecoData.mocDistancesBad));
 	}
 	
-	public String Where() {
+	public String where() {
 		return "You are here";
 	}
 	
-	public String Start() {
+	public String start() {
 		StartTracking();
-		return ecoData.Start();
+		return ecoData.start();
 	}
 	
-	public String Stop() {
+	public String stop() {
 		timer.cancel();
-		return ecoData.Stop();
+		return ecoData.stop();
+	}
+	
+	public int getScore() {
+		return ecoData.getScore();
 	}
 	
 	private void StartTracking() {

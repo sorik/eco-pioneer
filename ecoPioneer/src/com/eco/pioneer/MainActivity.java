@@ -61,14 +61,15 @@ public class MainActivity extends Activity {
 	        	startSyncProxyService();
 	            return true;
 	        case R.id.where:
-	        	((TextView)findViewById(R.id.maintextview)).setText(ecoService.Where());
+	        	((TextView)findViewById(R.id.maintextview)).setText(ecoService.where());
 	        	return true;
 	        case R.id.start:
-	        	((TextView)findViewById(R.id.maintextview)).setText(ecoService.Start());
+	        	((TextView)findViewById(R.id.maintextview)).setText(ecoService.start());
 	        	return true;
 	        case R.id.stop:
 	        	Intent intent = new Intent(this, MapActivity.class);
-	        	startActivity(intent);
+	        	intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+	        	getApplication().startActivity(intent);
 	        	
 	        	return true;	        	
 	        default:

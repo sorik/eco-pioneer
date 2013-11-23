@@ -53,9 +53,6 @@ public class MapActivity extends Activity {
 				  .title("North Melbourne"));
 		  north_melbourne.showInfoWindow();
 
-		  //		        .icon(BitmapDescriptorFactory
-		  //			            .fromResource(R.drawable.ic_launcher)) 
-
 		  Marker vic_market = map.addMarker(new MarkerOptions()
 		  .position(VICMARKET)
 		  .title("Collingwood")
@@ -72,7 +69,8 @@ public class MapActivity extends Activity {
 		  new RouteTask().execute(NORTH_MELBOURNE, VICMARKET);
 		  
 		  TextView result = (TextView)findViewById(R.id.map_result);
-		  result.setText("Your eco score is 86");
+		  
+		  result.setText("Your eco score is " + MainActivity.ecoService.getScore());
 		  
 	  }	
 	  

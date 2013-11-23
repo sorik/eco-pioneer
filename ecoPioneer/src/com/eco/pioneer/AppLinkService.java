@@ -361,10 +361,10 @@ public void onOnCommand(OnCommand notification) {
 	switch(notification.getCmdID())
 	{
 		case CMD_START: //XML Test
-			speakVoice(MainActivity.ecoService.Start());
+			speakVoice(MainActivity.ecoService.start());
 			break;
 		case CMD_FINISH: //XML Test
-			speakVoice(MainActivity.ecoService.Stop());
+			speakVoice(MainActivity.ecoService.stop());
         	Intent intent = new Intent(currentUIActivity, MapActivity.class); 
         	intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         	getApplication().startActivity(intent);
